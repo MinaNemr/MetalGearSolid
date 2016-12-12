@@ -1,0 +1,23 @@
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2008
+
+Project("{EC082E40-7282-9993-67CA-DA22BEA4186C}") = "Metal Gear", "Assembly-CSharp-firstpass.csproj", "{01CB7000-3825-C20F-7896-7B611C2CA362}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{01CB7000-3825-C20F-7896-7B611C2CA362}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{01CB7000-3825-C20F-7896-7B611C2CA362}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{01CB7000-3825-C20F-7896-7B611C2CA362}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{01CB7000-3825-C20F-7896-7B611C2CA362}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = Assembly-CSharp.csproj
+	EndGlobalSection
+EndGlobal
