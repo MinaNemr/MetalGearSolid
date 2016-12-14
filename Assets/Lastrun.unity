@@ -29546,6 +29546,84 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 844563038}
   m_Mesh: {fileID: 4301586, guid: b3c3ab45de4e1f64ea12b087b8bfc972, type: 3}
+--- !u!1001 &848105198
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1169932822}
+    m_Modifications:
+    - target: {fileID: 400002, guid: 57e6b9eeaa9277845ad2f2ea3945501b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.286
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: 57e6b9eeaa9277845ad2f2ea3945501b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.016
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: 57e6b9eeaa9277845ad2f2ea3945501b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.049
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: 57e6b9eeaa9277845ad2f2ea3945501b, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: 57e6b9eeaa9277845ad2f2ea3945501b, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: 57e6b9eeaa9277845ad2f2ea3945501b, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: 57e6b9eeaa9277845ad2f2ea3945501b, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: 57e6b9eeaa9277845ad2f2ea3945501b, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: 57e6b9eeaa9277845ad2f2ea3945501b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: 57e6b9eeaa9277845ad2f2ea3945501b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: 57e6b9eeaa9277845ad2f2ea3945501b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 2300002, guid: 57e6b9eeaa9277845ad2f2ea3945501b, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: e0834cb5f9b733e43a8342567cfb873e, type: 2}
+    - target: {fileID: 2300004, guid: 57e6b9eeaa9277845ad2f2ea3945501b, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: dce44a1ec851d4247ae7dfffb64b5bb7, type: 2}
+    - target: {fileID: 2300006, guid: 57e6b9eeaa9277845ad2f2ea3945501b, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 39ada1a35dcc3444abc5cca4861542ef, type: 2}
+    - target: {fileID: 400002, guid: 57e6b9eeaa9277845ad2f2ea3945501b, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: 57e6b9eeaa9277845ad2f2ea3945501b, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: 57e6b9eeaa9277845ad2f2ea3945501b, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 57e6b9eeaa9277845ad2f2ea3945501b, type: 3}
+  m_IsPrefabParent: 0
 --- !u!1 &848577410
 GameObject:
   m_ObjectHideFlags: 0
@@ -41929,6 +42007,10 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1163268056}
   m_Mesh: {fileID: 4300258, guid: b3c3ab45de4e1f64ea12b087b8bfc972, type: 3}
+--- !u!4 &1169932822 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 400010, guid: 9d6be3f7483112643923ca054e8a5bfe, type: 3}
+  m_PrefabInternal: {fileID: 459734458}
 --- !u!1 &1170406068
 GameObject:
   m_ObjectHideFlags: 0
