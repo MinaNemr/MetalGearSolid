@@ -4,7 +4,45 @@ timeCreated: 1481224071
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
-  fileIDToRecycleName: {}
+  fileIDToRecycleName:
+    100000: Empty
+    100002: floor
+    100004: Gun_ARM
+    100006: Gun_ARM2
+    100008: Gun_ARM3
+    100010: Man_rig
+    100012: Man_rig2
+    100014: Man_rig3
+    100016: Plane
+    100018: Plane_001
+    100020: Plane_002
+    100022: //RootNode
+    400000: Empty
+    400002: floor
+    400004: Gun_ARM
+    400006: Gun_ARM2
+    400008: Gun_ARM3
+    400010: Man_rig
+    400012: Man_rig2
+    400014: Man_rig3
+    400016: Plane
+    400018: Plane_001
+    400020: Plane_002
+    400022: //RootNode
+    2300000: floor
+    2300002: Plane
+    2300004: Plane_001
+    2300006: Plane_002
+    3300000: floor
+    3300002: Plane
+    3300004: Plane_001
+    3300006: Plane_002
+    4300000: Plane_002
+    4300002: Plane_001
+    4300004: Plane
+    4300006: floor
+    7400000: Default Take
+    9500000: //RootNode
   materials:
     importMaterials: 1
     materialName: 0
