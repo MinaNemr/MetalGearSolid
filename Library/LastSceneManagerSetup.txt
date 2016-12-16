@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Lastrun.unity
+- path: Assets/Title_Screen.unity
   isLoaded: 1
   isActive: 1
