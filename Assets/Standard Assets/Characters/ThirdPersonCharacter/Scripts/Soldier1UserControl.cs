@@ -32,8 +32,8 @@ namespace UnityStandardAssets.Characters.ThirdPerson
         {
            
             m_Character = GetComponent<ThirdPersonCharacter>();
-			start_p = m_Character.transform.position.z;
-			end_p = m_Character.transform.position.z + 10;
+			start_p = m_Character.transform.position.x;
+			end_p = m_Character.transform.position.x + 40;
 			playerInRange = false;
 			player = GameObject.Find("Snake").transform;
 			lineOfSightEnd =GameObject.Find("view").transform;
@@ -50,32 +50,29 @@ namespace UnityStandardAssets.Characters.ThirdPerson
         private void FixedUpdate()
         {
 			if (!m_Character.isStop ()) {
-				start_p = m_Character.transform.position.z;
+				start_p = m_Character.transform.position.x;
 
 				if (direction && start_p >= end_p) {
 					direction = !direction;
-					start_p = m_Character.transform.position.z;
-					end_p = m_Character.transform.position.z - 10;
+					start_p = m_Character.transform.position.x;
+					end_p = m_Character.transform.position.x - 40;
 					move = false;
 					first = false;
 				} else if (!direction && start_p <= end_p) {
 					direction = !direction;
-					start_p = m_Character.transform.position.z;
-					end_p = m_Character.transform.position.z + 10;
+					start_p = m_Character.transform.position.x;
+					end_p = m_Character.transform.position.x + 40;
 					move = false;
 				}
 				if (first) {
-					m_Move = Quaternion.Euler(0, -36, 0) * Vector3.forward;
-					m_Move = m_Move*0.3f;
+					m_Move = new Vector3(1,0,0)*0.5f;
 					m_Character.Move (m_Move, false, false);
 				} else if (move) {
 					if (direction) {
-						m_Move = Quaternion.Euler(0, -36, 0) * Vector3.forward;
-						m_Move = m_Move*0.5f;
+						m_Move = new Vector3(1,0,0)*0.8f;
 						m_Character.Move (m_Move, false, false);
 					} else {
-						m_Move = Quaternion.Euler(0, -36, 0) * Vector3.forward;
-						m_Move = m_Move*-0.5f;
+						m_Move = -new Vector3(1,0,0)*0.8f;
 						m_Character.Move (m_Move, false, false);
 					}
 				} 
@@ -99,12 +96,10 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 
 		public void change(){
 			if (direction) {
-				m_Move = Quaternion.Euler(0, -36, 0) *  Vector3.forward;
-				m_Move = m_Move*0.5f;
+				m_Move = new Vector3(1,0,0)*0.8f;
 				m_Character.Move (m_Move, false, false);
 			} else {
-				m_Move = Quaternion.Euler(0, -36, 0) * Vector3.forward;
-				m_Move = m_Move*-0.5f;
+				m_Move = -new Vector3(1,0,0)*0.8f;
 				m_Character.Move (m_Move, false, false);
 			}
 		}
@@ -116,7 +111,7 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 			
 		void Update(){
 			if (!m_Character.isStop ()) {
-	//	m_Character.setConstraints (RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezePositionX);
+		m_Character.setConstraints (RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezePositionZ);
 		}
 		}
 

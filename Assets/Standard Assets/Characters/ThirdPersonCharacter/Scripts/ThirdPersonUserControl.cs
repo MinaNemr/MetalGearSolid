@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using System.Collections.Generic;
 using UnityStandardAssets.CrossPlatformInput;
+using UnityEngine.UI;
 
 namespace UnityStandardAssets.Characters.ThirdPerson
 {
@@ -23,8 +24,12 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 		private bool reached1 = false;
 		private bool reached2 = false;
 		private bool reached3 = false;
-
-
+	    private List<string> items = new List<string>();
+		private List<string> weapons = new List<string>();
+		public Canvas weaponsMenu;
+		public Canvas itemsMenu;
+		public Button button;
+		int gap;
         private void Start()
         {
 			audio = GetComponent<AudioSource> ();
@@ -47,6 +52,25 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 
         private void Update()
         {
+			if(Input.GetKeyDown("r")){
+				if(!itemsMenu.enabled){
+				    itemsMenu.gameObject.SetActive (true);
+					itemsMenu.enabled = true;
+				}
+				else {
+					itemsMenu.gameObject.SetActive (false);
+					itemsMenu.enabled = false;
+				}
+			}
+			if(Input.GetKeyDown("f")){
+				if (!weaponsMenu.enabled) {
+					weaponsMenu.gameObject.SetActive (true);
+					weaponsMenu.enabled = true;
+				} else {
+					weaponsMenu.gameObject.SetActive (false);
+					weaponsMenu.enabled = false;
+				}
+			}
             if (!m_Jump)
             {
                 m_Jump = CrossPlatformInputManager.GetButtonDown("Jump");
@@ -60,7 +84,7 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 
 				if (enemy == null) {
 
-					Collider[] possibleEnemiesWhoHeardMe = Physics.OverlapSphere (transform.position, 10);
+					Collider[] possibleEnemiesWhoHeardMe = Physics.OverlapSphere (transform.position, 20);
 					List <float> distances = new List<float> ();
 					List <Collider> enemies = new List<Collider> ();
 					float distanceToPlayer;
@@ -172,5 +196,28 @@ namespace UnityStandardAssets.Characters.ThirdPerson
             m_Character.Move(m_Move, crouch, m_Jump);
             m_Jump = false;
         }
+
+		void OnCollisionEnter(Collision other)
+		{
+			if (other.transform.tag == "M9" || other.transform.tag == "AK47" || other.transform.tag == "patriot") {
+				weapons.Add (other.transform.tag);
+				Button newButton = (Button)Instantiate(button);  
+				newButton.transform.SetParent(weaponsMenu.transform,false);
+				newButton.GetComponentInChildren<Text>().text = other.transform.tag;
+				Debug.Log (other.transform.tag);
+				other.gameObject.SetActive (false);
+			} else if (other.transform.tag == "health" || other.transform.tag == "key" || other.transform.tag == "ration" || other.transform.tag == "cigarette"){
+				if (!items.Contains(other.transform.tag)) {
+					items.Add (other.transform.tag);
+					Button newButton = (Button)Instantiate(button);  
+					newButton.transform.SetParent(itemsMenu.transform,false);
+					newButton.GetComponentInChildren<Text>().text = other.transform.tag;
+					Debug.Log (other.transform.tag);
+					other.gameObject.SetActive (false);
+				}
+
+			}
+
+		}
     }
 }

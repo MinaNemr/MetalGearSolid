@@ -1,0 +1,18 @@
+# 3ds Max Wavefront OBJ Exporter v0.97b - (c)2007 guruware
+# File Created: 10.07.2010 21:43:20
+
+newmtl Shang_Tsung_Skull_mic
+	Ns 10.000000
+	Ni 1.500000
+	d 1.000000
+	Tr 0.000000
+	Tf 1.000000 1.000000 1.000000 
+	illum 2
+	Ka 0.588000 0.588000 0.588000
+	Kd 0.588000 0.588000 0.588000
+	Ks 0.000000 0.000000 0.000000
+	Ke 0.000000 0.000000 0.000000
+	map_Ka E:\Downloads\3Dstuff\Game model Ripping\Extracts\MKvsDC\Characters\CHAR_Scorpion\Texture2D\ShangTsung_Skull_diffuse.tga
+	map_Kd E:\Downloads\3Dstuff\Game model Ripping\Extracts\MKvsDC\Characters\CHAR_Scorpion\Texture2D\ShangTsung_Skull_diffuse.tga
+	map_bump E:\Downloads\3Dstuff\Game model Ripping\Extracts\MKvsDC\Characters\CHAR_Scorpion\Texture2D\ScreamingSkull_normal.tga
+	bump E:\Downloads\3Dstuff\Game model Ripping\Extracts\MKvsDC\Characters\CHAR_Scorpion\Texture2D\ScreamingSkull_normal.tga

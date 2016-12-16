@@ -6,6 +6,11 @@ TagManager:
   tags:
   - enemy
   - snake
+  - M9
+  - key
+  - cigarette
+  - AK47
+  - patriot
   layers:
   - Default
   - TransparentFX
