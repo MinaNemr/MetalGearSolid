@@ -73,7 +73,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\ButtonController.cs" />
+    <Compile Include="Assets\Scripts\CloseController.cs" />
+    <Compile Include="Assets\Scripts\PauseController.cs" />
     <Compile Include="Assets\Scripts\SceneController.cs" />
+    <Compile Include="Assets\Scripts\rotate.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Rifle\BLENDSWAP_LICENSE.txt" />
