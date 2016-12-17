@@ -241,18 +241,13 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 		public void setCurrent(Vector3 p){
 			current = p;
 		}
-
+		public Animator getAnimator(){
+			return m_Animator;
+		}
+			
 		public void setConstraints( RigidbodyConstraints c){
 			m_Rigidbody.constraints=c;
 		}
 
-		private void Update()
-		{
-			if(Input.GetKeyDown("m"))
-				m_Animator.SetBool("smoke", true);
-			if (m_Animator.GetCurrentAnimatorStateInfo (0).IsName ("smoke")) {
-				m_Animator.SetBool ("smoke", false);
-			}
-		}
 	}
 }

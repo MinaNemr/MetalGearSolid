@@ -26,12 +26,17 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 		private bool reached3 = false;
 	    private List<string> items = new List<string>();
 		private List<string> weapons = new List<string>();
-		public Canvas weaponsMenu;
-		public Canvas itemsMenu;
+		 Canvas itemsMenu;
+		Canvas weaponsMenu;
 		public Button button;
-		int gap;
+		int gapW=250;
+		int gapI=250;
         private void Start()
         {
+			weaponsMenu=GameObject.Find("weaponsMenu").GetComponent<Canvas>();
+			itemsMenu=GameObject.Find("itemsMenu").GetComponent<Canvas>();
+			itemsMenu.enabled = false;
+			weaponsMenu.enabled = false;
 			audio = GetComponent<AudioSource> ();
             // get the transform of the main camera
             if (Camera.main != null)
@@ -52,25 +57,17 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 
         private void Update()
         {
-			if(Input.GetKeyDown("r")){
-				if(!itemsMenu.enabled){
-				    itemsMenu.gameObject.SetActive (true);
-					itemsMenu.enabled = true;
-				}
-				else {
-					itemsMenu.gameObject.SetActive (false);
-					itemsMenu.enabled = false;
-				}
+			
+
+			if (Input.GetKeyDown ("r")) {
+				Debug.Log(itemsMenu.enabled);
+				itemsMenu.enabled = !itemsMenu.enabled;
 			}
-			if(Input.GetKeyDown("f")){
-				if (!weaponsMenu.enabled) {
-					weaponsMenu.gameObject.SetActive (true);
-					weaponsMenu.enabled = true;
-				} else {
-					weaponsMenu.gameObject.SetActive (false);
-					weaponsMenu.enabled = false;
-				}
+
+			else if(Input.GetKeyDown("f")){
+				weaponsMenu.enabled = !weaponsMenu.enabled; 
 			}
+
             if (!m_Jump)
             {
                 m_Jump = CrossPlatformInputManager.GetButtonDown("Jump");
@@ -79,6 +76,10 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 			if (Input.GetKeyDown ("l") || heard) {
 				if (Input.GetKeyDown ("l")) {
 					audio.Play ();
+					m_Character.getAnimator().SetBool("cough", true);
+				/*if (m_Character.getAnimator().GetCurrentAnimatorStateInfo (0).IsName ("cough")) {
+						m_Character.getAnimator().SetBool ("cough", false);
+					}*/
 				}
 
 
@@ -204,14 +205,18 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 				Button newButton = (Button)Instantiate(button);  
 				newButton.transform.SetParent(weaponsMenu.transform,false);
 				newButton.GetComponentInChildren<Text>().text = other.transform.tag;
+				newButton.GetComponent<RectTransform>().anchoredPosition = new Vector2(-400, gapI);
+				gapI -= 130;
 				Debug.Log (other.transform.tag);
 				other.gameObject.SetActive (false);
-			} else if (other.transform.tag == "health" || other.transform.tag == "key" || other.transform.tag == "ration" || other.transform.tag == "cigarette"){
+			} else if (other.transform.tag == "key" || other.transform.tag == "ration" || other.transform.tag == "cigarette"){
 				if (!items.Contains(other.transform.tag)) {
 					items.Add (other.transform.tag);
 					Button newButton = (Button)Instantiate(button);  
 					newButton.transform.SetParent(itemsMenu.transform,false);
 					newButton.GetComponentInChildren<Text>().text = other.transform.tag;
+					newButton.GetComponent<RectTransform>().anchoredPosition = new Vector2(-400, gapW);
+					gapW -= 130;
 					Debug.Log (other.transform.tag);
 					other.gameObject.SetActive (false);
 				}
