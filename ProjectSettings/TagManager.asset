@@ -3,7 +3,14 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - enemy
+  - snake
+  - M9
+  - key
+  - cigarette
+  - AK47
+  - patriot
   layers:
   - Default
   - TransparentFX
