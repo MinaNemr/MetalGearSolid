@@ -9,10 +9,10 @@ namespace UnityStandardAssets.Characters.ThirdPerson
         public bool playerInRange;
 
         [SerializeField]
-        Transform lineOfSightEnd;
-
-        //shooting
-        Transform player; //common
+        Transform player; 
+        public float range = 50.0f;
+        public float bulletImpulse = 20.0f;
+        private bool onRange = false;
         public Rigidbody projectile;
 
         private ThirdPersonCharacter m_Character; 
@@ -23,10 +23,7 @@ namespace UnityStandardAssets.Characters.ThirdPerson
         private void Start()
         {
             m_Character = GetComponent<ThirdPersonCharacter>();
-            playerInRange = false;
             player = GameObject.Find("Snake").transform;
-            lineOfSightEnd = GameObject.Find("view").transform;
-            m_Character.setCurrent(m_Character.transform.position);
             InvokeRepeating("Hide", 5.0f, 7.0f);
             InvokeRepeating("Shoot", 0.0f, 5.0f);
         }
@@ -34,11 +31,19 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 
         void Update()
         {
-            
-            
+
+            if (m_Character.getAnimator().GetCurrentAnimatorStateInfo(0).IsName("Shoot"))
+            {
+                m_Character.getAnimator().SetBool("shoot", false);
+            }
+            onRange = Vector3.Distance(transform.position, player.position) < range;
+           if (onRange)
+                transform.LookAt(player);
+
         }
         void Hide()
         {
+            m_Character.getAnimator().SetBool("shoot", false);
             Debug.Log("Hide");
             m_Move = new Vector3(0, 0, 0);
             m_Character.Move(m_Move, true, false);
@@ -49,6 +54,17 @@ namespace UnityStandardAssets.Characters.ThirdPerson
             Debug.Log("Shoot");
             m_Move = new Vector3(0, 0, 0);
             m_Character.Move(m_Move, false, false);
+            m_Character.getAnimator().SetBool("shoot", true);
+       
+
+            if (onRange)
+            {
+
+                Rigidbody bullet = (Rigidbody)Instantiate(projectile, transform.position + transform.forward, transform.rotation);
+                bullet.AddForce(transform.forward * bulletImpulse, ForceMode.Impulse);
+
+                Destroy(bullet.gameObject, 2);
+            }
             return;
         }
     }

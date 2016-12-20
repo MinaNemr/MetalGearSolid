@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 9f1d9dc7c542e43d49fc000ce116080c
-timeCreated: 1481914006
+timeCreated: 1482243156
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
@@ -17,6 +17,7 @@ ModelImporter:
     3300002: Scorpion_Cowl
     4300000: Scorpion
     4300002: Scorpion_Cowl
+    9500000: //RootNode
   materials:
     importMaterials: 1
     materialName: 0
@@ -27,11 +28,17 @@ ModelImporter:
     resampleCurves: 1
     optimizeGameObjects: 0
     motionNodeName: 
-    animationImportErrors: 
+    animationImportErrors: '
+
+      Imported file ''Scorpion'' conversion failed: Required human bone ''Hips'' not
+      found
+
+
+'
     animationImportWarnings: 
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
-    animationCompression: 1
+    animationCompression: 3
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
@@ -64,7 +71,22 @@ ModelImporter:
   copyAvatar: 0
   humanDescription:
     human: []
-    skeleton: []
+    skeleton:
+    - name: Scorpion(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: Scorpion
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: Scorpion_Cowl
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
     armTwist: 0.5
     foreArmTwist: 0.5
     upperLegTwist: 0.5
@@ -75,7 +97,7 @@ ModelImporter:
     rootMotionBoneName: 
     hasTranslationDoF: 0
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 0
+  animationType: 3
   humanoidOversampling: 1
   additionalBone: 0
   userData: 
