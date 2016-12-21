@@ -34,6 +34,7 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 
         void Update()
         {
+			
 			health_t.text = "Boss Health: " + health;
             if (m_Character.getAnimator().GetCurrentAnimatorStateInfo(0).IsName("Shoot"))
             {
