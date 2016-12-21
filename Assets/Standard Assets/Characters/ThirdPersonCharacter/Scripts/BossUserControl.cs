@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityStandardAssets.CrossPlatformInput;
 namespace UnityStandardAssets.Characters.ThirdPerson
 {
@@ -14,7 +15,8 @@ namespace UnityStandardAssets.Characters.ThirdPerson
         public float bulletImpulse = 20.0f;
         private bool onRange = false;
         public Rigidbody projectile;
-
+		int health = 200;
+		public Text health_t;
         private ThirdPersonCharacter m_Character; 
         private Vector3 m_Move;
         private float end_p;
@@ -26,12 +28,13 @@ namespace UnityStandardAssets.Characters.ThirdPerson
             player = GameObject.Find("Snake").transform;
             InvokeRepeating("Hide", 5.0f, 7.0f);
             InvokeRepeating("Shoot", 0.0f, 5.0f);
+
         }
 
 
         void Update()
         {
-
+			health_t.text = "Boss Health: " + health;
             if (m_Character.getAnimator().GetCurrentAnimatorStateInfo(0).IsName("Shoot"))
             {
                 m_Character.getAnimator().SetBool("shoot", false);
@@ -67,5 +70,15 @@ namespace UnityStandardAssets.Characters.ThirdPerson
             }
             return;
         }
+
+		void OnCollisionEnter(Collision other)
+		{
+			if (other.transform.tag == "bullet") {
+				Destroy (other.gameObject);
+				health -= 20;
+			}
+		}
+
+
     }
 }

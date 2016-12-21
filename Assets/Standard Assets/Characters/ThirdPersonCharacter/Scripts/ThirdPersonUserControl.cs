@@ -14,7 +14,8 @@ namespace UnityStandardAssets.Characters.ThirdPerson
         private Vector3 m_CamForward;             // The current forward direction of the camera
         private Vector3 m_Move;
         private bool m_Jump;                      // the world-relative desired move direction, calculated from the camForward and user input.
-
+		GameObject itemClicked = null;
+		GameObject itemDeselected = null;
 		private AudioSource audio;
 		private ThirdPersonCharacter enemy;
 		private bool heard = false;
@@ -24,6 +25,12 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 		private bool reached1 = false;
 		private bool reached2 = false;
 		private bool reached3 = false;
+		public GameObject M9;
+		public GameObject AK47;
+		public GameObject patriot;
+		public GameObject key;
+		public GameObject ration;
+		public GameObject cigarette;
 	    private List<string> items = new List<string>();
 		private List<string> weapons = new List<string>();
 		 Canvas itemsMenu;
@@ -31,6 +38,8 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 		public Button button;
 		int gapW=250;
 		int gapI=250;
+		int health = 100;
+		public Text health_t;
         private void Start()
         {
 			weaponsMenu=GameObject.Find("weaponsMenu").GetComponent<Canvas>();
@@ -57,8 +66,18 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 
         private void Update()
         {
-			
+			if(Input.GetKeyDown(KeyCode.RightAlt) && itemClicked != null && itemDeselected==null){
+				Debug.Log ("alt");
+				itemClicked.SetActive (true);
+				itemDeselected = itemClicked;
+				itemClicked = null;
+			}
+			else if(Input.GetKeyDown(KeyCode.RightAlt) && itemClicked == null && itemDeselected!=null){
+				itemDeselected.SetActive (false);
+				itemDeselected = null;
+			}
 
+			health_t.text = "Snake Health: " + health;
 			if (Input.GetKeyDown ("r")) {
 				Debug.Log(itemsMenu.enabled);
 				itemsMenu.enabled = !itemsMenu.enabled;
@@ -198,14 +217,64 @@ namespace UnityStandardAssets.Characters.ThirdPerson
             m_Jump = false;
         }
 
+		public void setHealth(int h){
+			health = h;
+		}
+
+		void M9OnClick(){
+			itemClicked = M9;
+		}
+
+		void AK47OnClick(){
+			itemClicked = AK47;
+		}
+			
+		void patriotOnClick(){
+			itemClicked = patriot;
+
+		}
+
+
+		void keyOnClick(){
+			itemClicked = key;
+
+		}
+
+		void rationOnClick(){
+			itemClicked = ration;
+
+		}
+
+		void cigaretteOnClick(){
+			itemClicked = cigarette;
+
+		}
+
+
+
 		void OnCollisionEnter(Collision other)
 		{
+			if (other.transform.tag == "bullet") {
+				Destroy (other.gameObject);
+				health -= 20;
+			}
+
 			if (other.transform.tag == "M9" || other.transform.tag == "AK47" || other.transform.tag == "patriot") {
 				weapons.Add (other.transform.tag);
 				Button newButton = (Button)Instantiate(button);  
 				newButton.transform.SetParent(weaponsMenu.transform,false);
 				newButton.GetComponentInChildren<Text>().text = other.transform.tag;
 				newButton.GetComponent<RectTransform>().anchoredPosition = new Vector2(-400, gapI);
+				if (other.transform.tag == "M9") {
+					newButton.onClick.AddListener (M9OnClick);
+				}
+				else if (other.transform.tag == "AK47") {
+					newButton.onClick.AddListener (AK47OnClick);
+				}
+				else if (other.transform.tag == "patriot") {
+					newButton.onClick.AddListener (patriotOnClick);
+				}
+
 				gapI -= 130;
 				Debug.Log (other.transform.tag);
 				other.gameObject.SetActive (false);
@@ -216,13 +285,21 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 					newButton.transform.SetParent(itemsMenu.transform,false);
 					newButton.GetComponentInChildren<Text>().text = other.transform.tag;
 					newButton.GetComponent<RectTransform>().anchoredPosition = new Vector2(-400, gapW);
+					if (other.transform.tag == "key") {
+						newButton.onClick.AddListener (keyOnClick);
+					}
+					else if (other.transform.tag == "ration") {
+						newButton.onClick.AddListener (rationOnClick);
+					}
+					else if (other.transform.tag == "cigarette") {
+						newButton.onClick.AddListener (cigaretteOnClick);
+					}
 					gapW -= 130;
 					Debug.Log (other.transform.tag);
 					other.gameObject.SetActive (false);
 				}
 
 			}
-
 		}
     }
 }

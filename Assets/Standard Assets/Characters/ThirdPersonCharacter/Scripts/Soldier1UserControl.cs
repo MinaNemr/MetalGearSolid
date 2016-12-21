@@ -10,14 +10,16 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 
 		[SerializeField]
 		Transform lineOfSightEnd;
-
+		public CapsuleCollider snake_c;
 		//shooting
 		Transform player; //common
 		public float range = 50.0f;
 		public float bulletImpulse= 20.0f;
 		private bool onRange= false;
 		public Rigidbody projectile;
+		public Canvas gameover;
 
+		public ThirdPersonCharacter snake;
         private ThirdPersonCharacter m_Character; // A reference to the ThirdPersonCharacter on the object
         private Transform m_Cam;                  // A reference to the main camera in the scenes transform
         private Vector3 m_CamForward;             // The current forward direction of the camera
@@ -30,7 +32,7 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 		private float start_p;
 		private void Start ()
         {
-           
+			gameover.enabled = false;
             m_Character = GetComponent<ThirdPersonCharacter>();
 			start_p = m_Character.transform.position.x;
 			end_p = m_Character.transform.position.x + 40;
@@ -84,15 +86,25 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 
 				if (CanPlayerBeSeen ()) {
 					Debug.Log ("Seen");
+
+					snake.getAnimator ().SetBool ("dead", true);
+					Invoke ("die", 2);
+					Invoke ("gameOver", 4);
 				}
-				
+
+
 			
 			}/* else {
 				m_Move = Vector3.zero;
 				m_Character.Move (m_Move, false, false);
 			}*/
         }
-
+		public void die(){
+			snake_c.height = 1;
+		}
+		public void gameOver(){
+			gameover.enabled = true;
+		}
 
 		public void change(){
 			if (direction) {

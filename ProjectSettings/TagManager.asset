@@ -11,6 +11,9 @@ TagManager:
   - cigarette
   - AK47
   - patriot
+  - Fire
+  - ration
+  - bullet
   layers:
   - Default
   - TransparentFX
