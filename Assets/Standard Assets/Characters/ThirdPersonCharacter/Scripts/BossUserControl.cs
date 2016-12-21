@@ -63,8 +63,13 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 
             if (onRange)
             {
+                Vector3 relativePos = player.position - transform.position;
+                Quaternion rotation = Quaternion.LookRotation(relativePos);
+                transform.rotation = rotation;
 
-                Rigidbody bullet = (Rigidbody)Instantiate(projectile, transform.position + transform.forward, transform.rotation);
+                Vector3 offset = new Vector3(0, 1, 0);
+                Transform bulletPlace = GameObject.Find("Mp7").transform;
+                Rigidbody bullet = (Rigidbody)Instantiate(projectile, bulletPlace.position + transform.forward + offset, rotation);
                 bullet.AddForce(transform.forward * bulletImpulse, ForceMode.Impulse);
 
                 Destroy(bullet.gameObject, 2);
