@@ -1,9 +1,9 @@
-﻿
-Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2015
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetalGearSolid.Plugins", "MetalGearSolid.Plugins.csproj", "{D7B4E896-EFF1-A513-156B-4C1CF2FC2413}"
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2008
+
+Project("{3617F0D5-9D63-D787-10E4-50279570C0D9}") = "MetalGearSolid", "Assembly-CSharp-firstpass.csproj", "{222A4081-0344-6630-DAA5-0A2DCE68F004}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetalGearSolid", "MetalGearSolid.csproj", "{66F34930-AD89-ADCD-70B9-86DB7B1E5F94}"
+Project("{3617F0D5-9D63-D787-10E4-50279570C0D9}") = "MetalGearSolid", "Assembly-CSharp.csproj", "{A545F87F-A387-980D-38BA-458ACC954A22}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,16 +11,19 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{D7B4E896-EFF1-A513-156B-4C1CF2FC2413}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D7B4E896-EFF1-A513-156B-4C1CF2FC2413}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D7B4E896-EFF1-A513-156B-4C1CF2FC2413}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D7B4E896-EFF1-A513-156B-4C1CF2FC2413}.Release|Any CPU.Build.0 = Release|Any CPU
-		{66F34930-AD89-ADCD-70B9-86DB7B1E5F94}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{66F34930-AD89-ADCD-70B9-86DB7B1E5F94}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{66F34930-AD89-ADCD-70B9-86DB7B1E5F94}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{66F34930-AD89-ADCD-70B9-86DB7B1E5F94}.Release|Any CPU.Build.0 = Release|Any CPU
+		{222A4081-0344-6630-DAA5-0A2DCE68F004}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{222A4081-0344-6630-DAA5-0A2DCE68F004}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{222A4081-0344-6630-DAA5-0A2DCE68F004}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{222A4081-0344-6630-DAA5-0A2DCE68F004}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A545F87F-A387-980D-38BA-458ACC954A22}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A545F87F-A387-980D-38BA-458ACC954A22}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A545F87F-A387-980D-38BA-458ACC954A22}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A545F87F-A387-980D-38BA-458ACC954A22}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = Assembly-CSharp.csproj
 	EndGlobalSection
 EndGlobal

@@ -31,6 +31,10 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 		public GameObject key;
 		public GameObject ration;
 		public GameObject cigarette;
+		public Animator door;
+		public GameObject doorCollider;
+		bool smoke = false;
+		bool hasKey = false;
 	    private List<string> items = new List<string>();
 		private List<string> weapons = new List<string>();
 		 Canvas itemsMenu;
@@ -39,14 +43,22 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 		int gapW=250;
 		int gapI=250;
 		int health = 100;
+		bool rationClicked = false;
 		public Text health_t;
         private void Start()
         {
+			
 			weaponsMenu=GameObject.Find("weaponsMenu").GetComponent<Canvas>();
 			itemsMenu=GameObject.Find("itemsMenu").GetComponent<Canvas>();
 			itemsMenu.enabled = false;
 			weaponsMenu.enabled = false;
 			audio = GetComponent<AudioSource> ();
+			AK47.SetActive (false);
+			//M9.SetActive (false);
+			cigarette.SetActive (false);
+			key.SetActive (false);
+			patriot.SetActive (false);
+			doorCollider.SetActive (true);
             // get the transform of the main camera
             if (Camera.main != null)
             {
@@ -66,6 +78,14 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 
         private void Update()
         {
+
+			if (Input.GetKeyDown(KeyCode.RightAlt) && rationClicked == true){
+				health += 50;
+				if (health >= 100) {
+					health = 100;
+				}
+				health_t.text = "Snake Health: " + health;
+			}
 			if(Input.GetKeyDown(KeyCode.RightAlt) && itemClicked != null && itemDeselected==null){
 				Debug.Log ("alt");
 				itemClicked.SetActive (true);
@@ -75,8 +95,10 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 			else if(Input.GetKeyDown(KeyCode.RightAlt) && itemClicked == null && itemDeselected!=null){
 				itemDeselected.SetActive (false);
 				itemDeselected = null;
+				smoke = false;
+				hasKey = false;
 			}
-
+				
 			health_t.text = "Snake Health: " + health;
 			if (Input.GetKeyDown ("r")) {
 				Debug.Log(itemsMenu.enabled);
@@ -92,19 +114,47 @@ namespace UnityStandardAssets.Characters.ThirdPerson
                 m_Jump = CrossPlatformInputManager.GetButtonDown("Jump");
             }
 
+			if (Input.GetKeyDown ("l")) {
+				audio.Play ();
+				m_Character.getAnimator().SetBool("cough", true);
+			}
+			if (m_Character.getAnimator().GetCurrentAnimatorStateInfo (0).IsName ("Cough")) {
+				m_Character.getAnimator().SetBool ("cough", false);
+			}
+
+			if (Input.GetKeyDown ("m") && smoke) {
+				m_Character.getAnimator().SetBool("smoke", true);
+			}
+			if (m_Character.getAnimator().GetCurrentAnimatorStateInfo (0).IsName ("Smoke")) {
+				m_Character.getAnimator().SetBool ("smoke", false);
+			}
+
+			if (Input.GetKeyDown ("k") && door) {
+
+				doorCollider.SetActive (false);
+				door.SetBool("open", true);
+				Invoke ("closeDoor", 8);
+			}
+
+			if (Input.GetKeyDown ("x")){
+				m_Character.getAnimator().SetBool("shoot2", true);
+			}
+			if (m_Character.getAnimator().GetCurrentAnimatorStateInfo (0).IsName ("Shoot2")) {
+				m_Character.getAnimator().SetBool ("shoot2", false);
+			}
+
+			if (m_Character.getAnimator().GetCurrentAnimatorStateInfo(0).IsName("Hit"))
+			{
+				m_Character.getAnimator().SetBool("hit", false);
+			}
+
+
 			if (Input.GetKeyDown ("l") || heard) {
-				if (Input.GetKeyDown ("l")) {
-					audio.Play ();
-					m_Character.getAnimator().SetBool("cough", true);
-				/*if (m_Character.getAnimator().GetCurrentAnimatorStateInfo (0).IsName ("cough")) {
-						m_Character.getAnimator().SetBool ("cough", false);
-					}*/
-				}
 
 
 				if (enemy == null) {
 
-					Collider[] possibleEnemiesWhoHeardMe = Physics.OverlapSphere (transform.position, 20);
+					Collider[] possibleEnemiesWhoHeardMe = Physics.OverlapSphere (transform.position, 10);
 					List <float> distances = new List<float> ();
 					List <Collider> enemies = new List<Collider> ();
 					float distanceToPlayer;
@@ -181,6 +231,10 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 			} 
         }
 
+		void closeDoor(){
+			doorCollider.SetActive (true);
+			door.SetBool("open", false);
+		}
 		private void backToPattern(){
 			move = enemy.getCurrent () - enemy.transform.position;
 			enemy.Move (move, false, false);
@@ -237,16 +291,19 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 
 		void keyOnClick(){
 			itemClicked = key;
+			hasKey = true;
 
 		}
 
 		void rationOnClick(){
-			itemClicked = ration;
+			rationClicked = true;
+
 
 		}
 
 		void cigaretteOnClick(){
 			itemClicked = cigarette;
+			smoke = true;
 
 		}
 
@@ -255,8 +312,10 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 		void OnCollisionEnter(Collision other)
 		{
 			if (other.transform.tag == "bullet") {
+				Debug.Log ("hited");
 				Destroy (other.gameObject);
 				health -= 20;
+				m_Character.getAnimator().SetBool("hit", true);
 			}
 
 			if (other.transform.tag == "M9" || other.transform.tag == "AK47" || other.transform.tag == "patriot") {

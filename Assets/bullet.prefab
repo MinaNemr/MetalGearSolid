@@ -21,6 +21,7 @@ GameObject:
   - 4: {fileID: 4000011061655502}
   - 95: {fileID: 95000010350384786}
   - 54: {fileID: 54000012677857832}
+  - 64: {fileID: 64000013914395232}
   m_Layer: 0
   m_Name: bullet
   m_TagString: bullet
@@ -81,10 +82,10 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000011364275140}
-  m_LocalRotation: {x: -0.70634836, y: 0.032742236, z: 0.032742236, w: 0.70634836}
+  m_LocalRotation: {x: 0.4289499, y: -0.5621406, z: -0.5621406, w: -0.4289499}
   m_LocalPosition: {x: 0.56, y: 0.79, z: -1.4}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: -90, y: 110, z: -104.692}
+  m_LocalEulerAnglesHint: {x: -90, y: -150, z: -104.692}
   m_Children:
   - {fileID: 4000010127908838}
   - {fileID: 4000013415952070}
@@ -192,6 +193,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!64 &64000013914395232
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011364275140}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 0
+  m_Mesh: {fileID: 0}
 --- !u!95 &95000010350384786
 Animator:
   serializedVersion: 3

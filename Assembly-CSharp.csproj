@@ -49,7 +49,9 @@
      <Compile Include="Assets\Scripts\CloseController.cs" />
      <Compile Include="Assets\Scripts\PauseController.cs" />
      <Compile Include="Assets\Scripts\SceneController.cs" />
+     <Compile Include="Assets\Scripts\camera.cs" />
      <Compile Include="Assets\Scripts\rotate.cs" />
+     <Compile Include="Assets\Scripts\shoot.cs" />
      <None Include="Assets\Standard Assets\Effects\GlassRefraction\Shaders\GlassStainedBumpDistort.shader" />
      <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\_BloomAndFlares\BlendOneOne.shader" />
      <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\NoiseEffectShaderRGB.shader" />
