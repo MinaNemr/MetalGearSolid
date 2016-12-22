@@ -15,7 +15,7 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 		[SerializeField] float m_MoveSpeedMultiplier = 1f;
 		[SerializeField] float m_AnimSpeedMultiplier = 2f;
 		[SerializeField] float m_GroundCheckDistance = 0.1f;
-
+		int health = 0;
 		Rigidbody m_Rigidbody;
 		Animator m_Animator;
 		bool m_IsGrounded;
@@ -45,6 +45,7 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 			m_OrigGroundCheckDistance = m_GroundCheckDistance;
 			//m_Rigidbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
 		}
+
 
 
 		public void Move(Vector3 move, bool crouch, bool jump)
@@ -244,7 +245,12 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 		public Animator getAnimator(){
 			return m_Animator;
 		}
-			
+		public void setHealth(int h){
+			health = h;
+		}
+		public int getHealth(){
+			return health;
+		}
 		public void setConstraints( RigidbodyConstraints c){
 			m_Rigidbody.constraints=c;
 		}

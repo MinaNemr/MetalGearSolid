@@ -13,7 +13,14 @@ namespace UnityStandardAssets.Characters.ThirdPerson
         private Transform m_Cam;                  // A reference to the main camera in the scenes transform
         private Vector3 m_CamForward;             // The current forward direction of the camera
         private Vector3 m_Move;
-        private bool m_Jump;                      // the world-relative desired move direction, calculated from the camForward and user input.
+        private bool m_Jump;  
+		Rigidbody bullet;
+		public ThirdPersonCharacter target;
+		public float range = 50.0f;
+		public float bulletImpulse = 20.0f;
+		Transform player;
+		private bool onRange = true;
+		public Rigidbody projectile;
 		GameObject itemClicked = null;
 		GameObject itemDeselected = null;
 		private AudioSource audio;
@@ -35,6 +42,7 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 		public GameObject doorCollider;
 		bool smoke = false;
 		bool hasKey = false;
+		public AudioClip[] sounds;
 	    private List<string> items = new List<string>();
 		private List<string> weapons = new List<string>();
 		 Canvas itemsMenu;
@@ -42,19 +50,22 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 		public Button button;
 		int gapW=250;
 		int gapI=250;
-		int health = 100;
+		//int health = 100;
 		bool rationClicked = false;
 		public Text health_t;
+		public Canvas gameover;
+			
         private void Start()
         {
-			
+			gameover.enabled = false;
+			player = GameObject.Find("Boss").transform;
 			weaponsMenu=GameObject.Find("weaponsMenu").GetComponent<Canvas>();
 			itemsMenu=GameObject.Find("itemsMenu").GetComponent<Canvas>();
 			itemsMenu.enabled = false;
 			weaponsMenu.enabled = false;
 			audio = GetComponent<AudioSource> ();
 			AK47.SetActive (false);
-			//M9.SetActive (false);
+			M9.SetActive (false);
 			cigarette.SetActive (false);
 			key.SetActive (false);
 			patriot.SetActive (false);
@@ -73,18 +84,95 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 
             // get the third person character ( this should never be null due to require component )
             m_Character = GetComponent<ThirdPersonCharacter>();
+			m_Character.setHealth (100);
         }
 
+		bool bulletIn()
+		{
 
+			Vector3 directionToPlayer = bullet.position - player.position; 
+			//Debug.DrawLine(transform.position, player.position, Color.magenta); 
+
+			Vector3 lineOfSight = bullet.position - player.position; 
+			//Debug.DrawLine(transform.position, lineOfSightEnd.position, Color.yellow); 
+
+
+			float angle = Vector3.Angle(directionToPlayer, lineOfSight);
+			Debug.Log (angle);
+	
+			Debug.Log (Vector3.Distance(bullet.position,player.position));
+			if (angle < 65 && Vector3.Distance(bullet.position,player.position)<10) {
+				return true;
+			}
+			else {
+				return false;
+			}
+
+
+		}
+
+		void Shoot()
+		{
+			Debug.Log("Shoot");
+			m_Move = new Vector3(0, 0, 0);
+			m_Character.Move(m_Move, false, false);
+			if (onRange)
+			{
+				RaycastHit hit;
+				Vector3 fwd = transform.TransformDirection(Vector3.forward);
+				Debug.Log ("Detected3");
+				if (Physics.Raycast (new Vector3(transform.position.x,transform.position.y,transform.position.z), fwd, out hit, 200.0f)) {
+					Debug.Log ("Detected2");
+					if (hit.transform.tag == "boss") {
+						Debug.Log ("Detected2");
+						Vector3 offset = new Vector3 (0.0f,1.0f,0.7f);
+						Transform bulletPlace = GameObject.Find("M9").transform;
+						//Vector3 dir =new Vector3 (hit.transform.position.x+3.0f, hit.transform.position.y + 7.2f, hit.transform.position.z) - new Vector3 (transform.position.x, transform.position.y + 3.3f, transform.position.z);
+						bullet = (Rigidbody)Instantiate(projectile, bulletPlace.position+offset, Quaternion.LookRotation(new Vector3 (hit.transform.position.x, hit.transform.position.y + 3.2f, hit.transform.position.z) - new Vector3 (transform.position.x, transform.position.y + 3.3f, transform.position.z)));
+						bullet.AddForce((transform.forward) * bulletImpulse*0.5f, ForceMode.Impulse);
+						if(bulletIn()){
+							target.getAnimator().SetBool("hit", true);
+							target.setHealth(target.getHealth()-20);
+						}
+						Destroy(bullet.gameObject, 2);
+					}
+				}
+			}
+
+		
+
+
+			return;
+		}
+
+
+
+
+		void PlaySound(int clip)
+		{   
+			audio.clip = sounds[clip];
+			audio.Play();
+		}
+		public void gameOver(){
+			gameover.enabled = true;
+		}
         private void Update()
         {
+			if (m_Character.getHealth() == 0) {
+				m_Character.getAnimator().SetBool ("dead",true);
+				Invoke ("gameOver", 3);
+			}
+			if (Input.GetKeyDown(KeyCode.Space)){
+				PlaySound (0);
+				}
+
 
 			if (Input.GetKeyDown(KeyCode.RightAlt) && rationClicked == true){
-				health += 50;
-				if (health >= 100) {
-					health = 100;
+				m_Character.setHealth(m_Character.getHealth()+50);
+				if (m_Character.getHealth() >= 100) {
+					m_Character.setHealth(100);
 				}
-				health_t.text = "Snake Health: " + health;
+				health_t.text = "Snake Health: " + m_Character.getHealth();
 			}
 			if(Input.GetKeyDown(KeyCode.RightAlt) && itemClicked != null && itemDeselected==null){
 				Debug.Log ("alt");
@@ -99,7 +187,7 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 				hasKey = false;
 			}
 				
-			health_t.text = "Snake Health: " + health;
+			health_t.text = "Snake Health: " + m_Character.getHealth();
 			if (Input.GetKeyDown ("r")) {
 				Debug.Log(itemsMenu.enabled);
 				itemsMenu.enabled = !itemsMenu.enabled;
@@ -115,8 +203,9 @@ namespace UnityStandardAssets.Characters.ThirdPerson
             }
 
 			if (Input.GetKeyDown ("l")) {
-				audio.Play ();
+				
 				m_Character.getAnimator().SetBool("cough", true);
+				PlaySound(2);
 			}
 			if (m_Character.getAnimator().GetCurrentAnimatorStateInfo (0).IsName ("Cough")) {
 				m_Character.getAnimator().SetBool ("cough", false);
@@ -138,6 +227,7 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 
 			if (Input.GetKeyDown ("x")){
 				m_Character.getAnimator().SetBool("shoot2", true);
+				Shoot ();
 			}
 			if (m_Character.getAnimator().GetCurrentAnimatorStateInfo (0).IsName ("Shoot2")) {
 				m_Character.getAnimator().SetBool ("shoot2", false);
@@ -249,6 +339,10 @@ namespace UnityStandardAssets.Characters.ThirdPerson
             float v = CrossPlatformInputManager.GetAxis("Vertical");
             bool crouch = Input.GetKey(KeyCode.C);
 
+			/*if(h>0 || v>0){
+				PlaySound (0);
+			}*/
+
             // calculate move direction to pass to character
             if (m_Cam != null)
             {
@@ -271,9 +365,9 @@ namespace UnityStandardAssets.Characters.ThirdPerson
             m_Jump = false;
         }
 
-		public void setHealth(int h){
+		/*public void setHealth(int h){
 			health = h;
-		}
+		}*/
 
 		void M9OnClick(){
 			itemClicked = M9;
@@ -314,11 +408,12 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 			if (other.transform.tag == "bullet") {
 				Debug.Log ("hited");
 				Destroy (other.gameObject);
-				health -= 20;
+				m_Character.setHealth(m_Character.getHealth()- 20);
 				m_Character.getAnimator().SetBool("hit", true);
 			}
 
 			if (other.transform.tag == "M9" || other.transform.tag == "AK47" || other.transform.tag == "patriot") {
+				PlaySound (1);
 				weapons.Add (other.transform.tag);
 				Button newButton = (Button)Instantiate(button);  
 				newButton.transform.SetParent(weaponsMenu.transform,false);
@@ -339,6 +434,7 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 				other.gameObject.SetActive (false);
 			} else if (other.transform.tag == "key" || other.transform.tag == "ration" || other.transform.tag == "cigarette"){
 				if (!items.Contains(other.transform.tag)) {
+					PlaySound (1);
 					items.Add (other.transform.tag);
 					Button newButton = (Button)Instantiate(button);  
 					newButton.transform.SetParent(itemsMenu.transform,false);
